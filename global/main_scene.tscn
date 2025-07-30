@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfefg40nn8vlj"]
+[gd_scene load_steps=11 format=3 uid="uid://bfefg40nn8vlj"]
 
 [ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://protag/character_game_jam.png" id="1_6ebau"]
 [ext_resource type="Script" uid="uid://brsiganasfwku" path="res://protag/protag.gd" id="2_6c5vy"]
@@ -6,9 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://dxfcusyfc08sb" path="res://plants/berry/berry_bush.tscn" id="4_y5dew"]
 [ext_resource type="Script" uid="uid://60veij5n47b6" path="res://global/interaction.gd" id="5_xckwb"]
 [ext_resource type="Texture2D" uid="uid://cr3hkpofs4phx" path="res://planets/sun.png" id="6_6c5vy"]
+[ext_resource type="Shader" uid="uid://dsfw26xqtiyv2" path="res://shaders/Sky_Shader.tres" id="6_y5dew"]
 [ext_resource type="Script" uid="uid://cqi8ky2e2nm1p" path="res://planets/sun.gd" id="7_kea51"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_8mm7a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xckwb"]
+shader = ExtResource("6_y5dew")
+shader_parameter/Top_Color = Color(0.05, 0.303333, 1, 1)
+shader_parameter/Bottom_Color = Color(1, 1, 1, 1)
+shader_parameter/Horizon_Height = -0.505
+shader_parameter/Horizon_Sharpness = 5.515
 
 [node name="Main Level" type="Node2D"]
 
@@ -51,6 +59,21 @@ attached = NodePath("../Earth")
 [node name="BerryBush3" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_y5dew")]
 position = Vector2(3712, 1540)
 attached = NodePath("../Earth")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_xckwb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1723.0
+offset_top = -905.0
+offset_right = 565.0
+offset_bottom = 383.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Sun" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
 position = Vector2(120, -7101.4)
