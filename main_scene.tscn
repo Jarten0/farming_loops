@@ -10,11 +10,12 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Protag" type="Sprite2D" parent="."]
+[node name="Protag" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
 position = Vector2(-3, 63)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_gyfs4")
 script = ExtResource("2_8mm7a")
+attached = NodePath("../Earth")
 
 [node name="Camera2D" type="Camera2D" parent="Protag"]
 
@@ -28,6 +29,24 @@ texture = ExtResource("2_d5x1h")
 
 [node name="Node2D" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
 position = Vector2(1083, 196)
+texture = ExtResource("3_d5x1h")
+script = ExtResource("1_0f027")
+attached = NodePath("../Earth")
+
+[node name="Node2D2" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
+position = Vector2(2613, 731)
+texture = ExtResource("3_d5x1h")
+script = ExtResource("1_0f027")
+attached = NodePath("../Earth")
+
+[node name="Node2D3" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
+position = Vector2(4007, 1763)
+texture = ExtResource("3_d5x1h")
+script = ExtResource("1_0f027")
+attached = NodePath("../Earth")
+
+[node name="Node2D4" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
+position = Vector2(5080, 4731)
 texture = ExtResource("3_d5x1h")
 script = ExtResource("1_0f027")
 attached = NodePath("../Earth")
