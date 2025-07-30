@@ -1,24 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfefg40nn8vlj"]
+[gd_scene load_steps=7 format=3 uid="uid://bfefg40nn8vlj"]
 
-[ext_resource type="Script" uid="uid://cwhxh7iie82wy" path="res://mesh_instance_2d.gd" id="1_0f027"]
+[ext_resource type="Script" uid="uid://cwhxh7iie82wy" path="res://attachable.gd" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://character_game_jam.png" id="1_gyfs4"]
+[ext_resource type="Script" uid="uid://brsiganasfwku" path="res://protag.gd" id="2_8mm7a"]
 [ext_resource type="Texture2D" uid="uid://dcjn83y1bjgc4" path="res://world.png" id="2_d5x1h"]
+[ext_resource type="Texture2D" uid="uid://bb8xtyotrin50" path="res://simple_bush.png" id="3_d5x1h"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_8mm7a"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Protag" type="Sprite2D" parent="."]
-position = Vector2(-1, -82)
+position = Vector2(-3, 63)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_gyfs4")
+script = ExtResource("2_8mm7a")
 
 [node name="Camera2D" type="Camera2D" parent="Protag"]
 
 [node name="Earth" type="MeshInstance2D" parent="."]
+z_index = -6
 texture_filter = 1
 position = Vector2(0, 5002)
 scale = Vector2(10000, 10000)
 mesh = SubResource("QuadMesh_8mm7a")
 texture = ExtResource("2_d5x1h")
+
+[node name="Node2D" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
+position = Vector2(1083, 196)
+texture = ExtResource("3_d5x1h")
 script = ExtResource("1_0f027")
+attached = NodePath("../Earth")
