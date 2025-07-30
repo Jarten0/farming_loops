@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfefg40nn8vlj"]
+
+[ext_resource type="Script" uid="uid://cwhxh7iie82wy" path="res://mesh_instance_2d.gd" id="1_0f027"]
+[ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://character_game_jam.png" id="1_gyfs4"]
+[ext_resource type="Texture2D" uid="uid://dcjn83y1bjgc4" path="res://world.png" id="2_d5x1h"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_8mm7a"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Protag" type="Sprite2D" parent="."]
+position = Vector2(-1, -82)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_gyfs4")
+
+[node name="Camera2D" type="Camera2D" parent="Protag"]
+
+[node name="Earth" type="MeshInstance2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 5002)
+scale = Vector2(10000, 10000)
+mesh = SubResource("QuadMesh_8mm7a")
+texture = ExtResource("2_d5x1h")
+script = ExtResource("1_0f027")
