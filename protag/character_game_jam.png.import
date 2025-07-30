@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dweer6k68db0r"
-path="res://.godot/imported/character_game_jam.png-249a46080cba9de104ed5690e54d70e0.ctex"
+path="res://.godot/imported/character_game_jam.png-1137274e9cc96b45c5e8f6a7f013105b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://character_game_jam.png"
-dest_files=["res://.godot/imported/character_game_jam.png-249a46080cba9de104ed5690e54d70e0.ctex"]
+source_file="res://protag/character_game_jam.png"
+dest_files=["res://.godot/imported/character_game_jam.png-1137274e9cc96b45c5e8f6a7f013105b.ctex"]
 
 [params]
 

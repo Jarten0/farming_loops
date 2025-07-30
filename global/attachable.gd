@@ -1,3 +1,4 @@
+class_name Attachable
 extends Node2D
 
 @export var attached: Node2D

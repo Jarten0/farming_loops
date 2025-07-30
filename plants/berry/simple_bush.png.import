@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqdyju432ut2u"
-path="res://.godot/imported/blueberry_bush.png-6f182a9d94dfd04003146d92d68bc244.ctex"
+uid="uid://bb8xtyotrin50"
+path="res://.godot/imported/simple_bush.png-cc2fa12d9837d297d70503cf3bd85006.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://blueberry_bush.png"
-dest_files=["res://.godot/imported/blueberry_bush.png-6f182a9d94dfd04003146d92d68bc244.ctex"]
+source_file="res://plants/berry/simple_bush.png"
+dest_files=["res://.godot/imported/simple_bush.png-cc2fa12d9837d297d70503cf3bd85006.ctex"]
 
 [params]
 

@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://bfefg40nn8vlj"]
+
+[ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://protag/character_game_jam.png" id="1_6ebau"]
+[ext_resource type="Script" uid="uid://brsiganasfwku" path="res://protag/protag.gd" id="2_6c5vy"]
+[ext_resource type="Texture2D" uid="uid://dcjn83y1bjgc4" path="res://planets/world.png" id="3_kea51"]
+[ext_resource type="PackedScene" uid="uid://dxfcusyfc08sb" path="res://plants/berry/berry_bush.tscn" id="4_y5dew"]
+[ext_resource type="Script" uid="uid://60veij5n47b6" path="res://global/interaction.gd" id="5_xckwb"]
+[ext_resource type="Texture2D" uid="uid://cr3hkpofs4phx" path="res://planets/sun.png" id="6_6c5vy"]
+[ext_resource type="Script" uid="uid://cqi8ky2e2nm1p" path="res://planets/sun.gd" id="7_kea51"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_8mm7a"]
+
+[node name="Main Level" type="Node2D"]
+
+[node name="Protag" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
+position = Vector2(-3, 63)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_6ebau")
+script = ExtResource("2_6c5vy")
+berries = null
+plant_type = 1
+attached = NodePath("../Earth")
+
+[node name="MainCamera" type="Camera2D" parent="Protag"]
+unique_name_in_owner = true
+scale = Vector2(1, 1.01038)
+ignore_rotation = false
+zoom = Vector2(0.335, 0.335)
+
+[node name="Earth" type="MeshInstance2D" parent="."]
+z_index = -6
+texture_filter = 1
+position = Vector2(0, 5002)
+scale = Vector2(10000, 10000)
+mesh = SubResource("QuadMesh_8mm7a")
+texture = ExtResource("3_kea51")
+
+[node name="BerryBush" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_y5dew")]
+position = Vector2(1083, 196)
+attached = NodePath("../Earth")
+
+[node name="Collections" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_xckwb")
+plantable_plants = Array[PackedScene]([null, ExtResource("4_y5dew")])
+
+[node name="BerryBush2" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_y5dew")]
+position = Vector2(2578, 748)
+attached = NodePath("../Earth")
+
+[node name="BerryBush3" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_y5dew")]
+position = Vector2(3712, 1540)
+attached = NodePath("../Earth")
+
+[node name="Sun" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
+position = Vector2(120, -7101.4)
+scale = Vector2(1.9, 1.9)
+texture = ExtResource("6_6c5vy")
+script = ExtResource("7_kea51")
+distance = Vector2(0, 16000)
+attached = NodePath("../Earth")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sun"]
+color = Color(0.7469, 0.899352, 0.97, 0.431373)
+texture = ExtResource("6_6c5vy")
+texture_scale = 8.0

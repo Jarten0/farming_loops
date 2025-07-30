@@ -1,4 +1,4 @@
-extends "res://attachable.gd"
+extends Attachable
 
 @export var berries: int = 0
 @export var plant_type: Harvestable.PlantType

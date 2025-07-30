@@ -1,5 +1,5 @@
 class_name Harvestable
-extends "res://attachable.gd"
+extends Attachable
 
 enum PlantType {
 	None,

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb8xtyotrin50"
-path="res://.godot/imported/simple_bush.png-66416b4e6ea8d8de3210e9c973d82560.ctex"
+uid="uid://cr3hkpofs4phx"
+path="res://.godot/imported/sun.png-fd2de24c73b4d20c50796b4125a78a6d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://simple_bush.png"
-dest_files=["res://.godot/imported/simple_bush.png-66416b4e6ea8d8de3210e9c973d82560.ctex"]
+source_file="res://planets/sun.png"
+dest_files=["res://.godot/imported/sun.png-fd2de24c73b4d20c50796b4125a78a6d.ctex"]
 
 [params]
 
