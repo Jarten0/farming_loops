@@ -1,23 +1,26 @@
 [gd_scene load_steps=7 format=3 uid="uid://bfefg40nn8vlj"]
 
-[ext_resource type="Script" uid="uid://cwhxh7iie82wy" path="res://attachable.gd" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://character_game_jam.png" id="1_gyfs4"]
 [ext_resource type="Script" uid="uid://brsiganasfwku" path="res://protag.gd" id="2_8mm7a"]
 [ext_resource type="Texture2D" uid="uid://dcjn83y1bjgc4" path="res://world.png" id="2_d5x1h"]
-[ext_resource type="Texture2D" uid="uid://bb8xtyotrin50" path="res://simple_bush.png" id="3_d5x1h"]
+[ext_resource type="PackedScene" uid="uid://dxfcusyfc08sb" path="res://berry_bush.tscn" id="4_8mm7a"]
+[ext_resource type="Script" uid="uid://60veij5n47b6" path="res://interaction.gd" id="7_66tet"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_8mm7a"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main Level" type="Node2D"]
 
 [node name="Protag" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
 position = Vector2(-3, 63)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_gyfs4")
 script = ExtResource("2_8mm7a")
+plant_type = 1
 attached = NodePath("../Earth")
 
-[node name="Camera2D" type="Camera2D" parent="Protag"]
+[node name="MainCamera" type="Camera2D" parent="Protag"]
+unique_name_in_owner = true
+ignore_rotation = false
 
 [node name="Earth" type="MeshInstance2D" parent="."]
 z_index = -6
@@ -27,26 +30,19 @@ scale = Vector2(10000, 10000)
 mesh = SubResource("QuadMesh_8mm7a")
 texture = ExtResource("2_d5x1h")
 
-[node name="Node2D" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
+[node name="BerryBush" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_8mm7a")]
 position = Vector2(1083, 196)
-texture = ExtResource("3_d5x1h")
-script = ExtResource("1_0f027")
 attached = NodePath("../Earth")
 
-[node name="Node2D2" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
-position = Vector2(2613, 731)
-texture = ExtResource("3_d5x1h")
-script = ExtResource("1_0f027")
+[node name="Collections" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_66tet")
+plantable_plants = Array[PackedScene]([null, ExtResource("4_8mm7a")])
+
+[node name="BerryBush2" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_8mm7a")]
+position = Vector2(2578, 748)
 attached = NodePath("../Earth")
 
-[node name="Node2D3" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
-position = Vector2(4007, 1763)
-texture = ExtResource("3_d5x1h")
-script = ExtResource("1_0f027")
-attached = NodePath("../Earth")
-
-[node name="Node2D4" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
-position = Vector2(5080, 4731)
-texture = ExtResource("3_d5x1h")
-script = ExtResource("1_0f027")
+[node name="BerryBush3" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_8mm7a")]
+position = Vector2(3712, 1540)
 attached = NodePath("../Earth")
