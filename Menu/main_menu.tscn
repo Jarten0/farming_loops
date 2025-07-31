@@ -1,12 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqlkuyon6wf7t"]
+[gd_scene load_steps=4 format=3 uid="uid://cqlkuyon6wf7t"]
 
+[ext_resource type="Script" uid="uid://bgv44h3wvlqx5" path="res://Menu/main_menu.gd" id="1_ci1se"]
 [ext_resource type="Theme" uid="uid://dpx10in8ntqwb" path="res://icons/theme.tres" id="1_sla5p"]
+[ext_resource type="Texture2D" uid="uid://b04mxpv0qu8sq" path="res://Menu/Illustration2.png" id="2_dtkyu"]
 
 [node name="Main menu" type="Node2D"]
+script = ExtResource("1_ci1se")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 1154.0
-offset_bottom = 649.0
+offset_left = -19.0
+offset_top = -82.0
+offset_right = 1166.0
+offset_bottom = 693.0
+texture = ExtResource("2_dtkyu")
+expand_mode = 1
 
 [node name="buttons" type="VBoxContainer" parent="."]
 offset_left = 770.0
@@ -23,3 +30,6 @@ text = "START"
 layout_mode = 2
 theme = ExtResource("1_sla5p")
 text = "Quit"
+
+[connection signal="pressed" from="buttons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="buttons/Quit" to="." method="_on_quit_pressed"]
