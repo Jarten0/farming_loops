@@ -1,5 +1,7 @@
 extends Control
 
+
+
 @export var buttons: Array[Control]
 @export var progress: float = 0
 @export var is_open = false
@@ -22,6 +24,6 @@ func _process(delta: float) -> void:
 		
 	var i = 0
 	for position in positions:
-		var target_position = (i * 35) + 510
-		buttons[i].position = Vector2(10, (target_position * progress) - 500)
+		var target_position = (i * 75) + 110
+		buttons[i].position = Vector2(10, (target_position * progress) - 110)
 		i += 1

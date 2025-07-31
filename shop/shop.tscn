@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3shi0ab66n7r"]
+[gd_scene load_steps=11 format=3 uid="uid://c3shi0ab66n7r"]
 
 [ext_resource type="Texture2D" uid="uid://byqika8as6w5t" path="res://shop/icon.png" id="1_r2p71"]
+[ext_resource type="Theme" uid="uid://dpx10in8ntqwb" path="res://icons/theme.tres" id="2_mrnko"]
 [ext_resource type="Script" uid="uid://bx60dep3nbnlo" path="res://shop/shop_interface.gd" id="2_sxvro"]
+[ext_resource type="Texture2D" uid="uid://14in3wwq71a8" path="res://icons/blueberry_icon.png" id="3_bv5vx"]
 [ext_resource type="Script" uid="uid://dktobp2ntbcrs" path="res://shop/open_shop_button.gd" id="3_givde"]
+[ext_resource type="Texture2D" uid="uid://cr0fsf35tx1lx" path="res://icons/strawberry_icon.png" id="4_mmyc1"]
+[ext_resource type="Texture2D" uid="uid://b4turk1fhrkat" path="res://icons/carrot_icon.png" id="5_orod7"]
+[ext_resource type="Texture2D" uid="uid://cy7gf7xm2jpar" path="res://icons/tomato_icon.png" id="6_cd0xb"]
+[ext_resource type="Texture2D" uid="uid://b5buwfqor1c8i" path="res://icons/wheat_icon.png" id="7_yrv44"]
+[ext_resource type="FontFile" uid="uid://d23l4is4b6y8h" path="res://icons/NataSans-SemiBold.ttf" id="8_pafut"]
 
 [node name="Shop" type="Control"]
 top_level = true
@@ -18,61 +25,95 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_sxvro")
-buttons = [NodePath("Button"), NodePath("Button2"), NodePath("Button3"), NodePath("CloseShopButton")]
+buttons = [NodePath("Blueberry"), NodePath("strawberry"), NodePath("Carrots"), NodePath("tomatoes"), NodePath("Wheat"), NodePath("CloseShopButton")]
 
-[node name="Button" type="Button" parent="ShopInterface"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = 182.0
-offset_bottom = 43.0
+[node name="Blueberry" type="Button" parent="ShopInterface"]
+layout_mode = 2
+offset_top = 27.0
+offset_right = 69.0
+offset_bottom = 108.08
 focus_mode = 0
-text = "Plant blueberry bush"
+theme = ExtResource("2_mrnko")
+theme_override_font_sizes/font_size = 10
+text = "Blueberries"
+icon = ExtResource("3_bv5vx")
+icon_alignment = 1
+vertical_icon_alignment = 0
 
-[node name="Button2" type="Button" parent="ShopInterface"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 61.0
-offset_right = 180.0
-offset_bottom = 92.0
+[node name="strawberry" type="Button" parent="ShopInterface"]
+layout_mode = 2
+offset_top = 112.0
+offset_right = 69.0
+offset_bottom = 193.08
 focus_mode = 0
-text = "Plant blue2"
+theme = ExtResource("2_mrnko")
+theme_override_font_sizes/font_size = 10
+text = "Strawberries"
+icon = ExtResource("4_mmyc1")
+icon_alignment = 1
+vertical_icon_alignment = 0
 
-[node name="Button3" type="Button" parent="ShopInterface"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 117.0
-offset_right = 178.0
-offset_bottom = 148.0
+[node name="Carrots" type="Button" parent="ShopInterface"]
+layout_mode = 2
+offset_top = 197.0
+offset_right = 69.0
+offset_bottom = 278.08
 focus_mode = 0
-text = "Plant bl3"
+theme = ExtResource("2_mrnko")
+theme_override_font_sizes/font_size = 10
+text = "Carrots"
+icon = ExtResource("5_orod7")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="tomatoes" type="Button" parent="ShopInterface"]
+layout_mode = 2
+offset_top = 282.0
+offset_right = 69.0
+offset_bottom = 363.08
+focus_mode = 0
+theme = ExtResource("2_mrnko")
+theme_override_font_sizes/font_size = 10
+text = "Tomatoes"
+icon = ExtResource("6_cd0xb")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Wheat" type="Button" parent="ShopInterface"]
+layout_mode = 2
+offset_top = 367.0
+offset_right = 69.0
+offset_bottom = 448.08
+focus_mode = 0
+theme = ExtResource("2_mrnko")
+theme_override_font_sizes/font_size = 10
+text = "Wheat"
+icon = ExtResource("7_yrv44")
+icon_alignment = 1
+vertical_icon_alignment = 0
 
 [node name="CloseShopButton" type="Control" parent="ShopInterface"]
-anchors_preset = 0
-offset_left = 25.0
-offset_top = 165.0
-offset_right = 65.0
-offset_bottom = 205.0
-
-[node name="Label" type="Label" parent="ShopInterface/CloseShopButton"]
-z_index = 1
 layout_mode = 2
-offset_left = 28.0
-offset_top = 7.0
-offset_right = 109.0
-offset_bottom = 30.0
-scale = Vector2(0.820655, 0.820655)
-text = "Close"
+anchors_preset = 0
+offset_top = 452.0
+offset_right = 69.0
+offset_bottom = 452.0
 
 [node name="CloseButton" type="Button" parent="ShopInterface/CloseShopButton"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 4.0
-offset_right = 2040.0
-offset_bottom = 1641.0
+offset_left = 2.0
+offset_top = -3.0
+offset_right = 2036.0
+offset_bottom = 1634.0
 scale = Vector2(0.056732, 0.056732)
 focus_mode = 0
+theme_override_constants/icon_max_width = 0
+theme_override_fonts/font = ExtResource("8_pafut")
+theme_override_font_sizes/font_size = 200
+text = "Close"
 icon = ExtResource("1_r2p71")
+icon_alignment = 1
+vertical_icon_alignment = 0
 
 [node name="OpenShopButton" type="Control" parent="."]
 layout_mode = 3
@@ -91,6 +132,7 @@ offset_top = 8.0
 offset_right = 105.0
 offset_bottom = 31.0
 scale = Vector2(0.820655, 0.820655)
+theme = ExtResource("2_mrnko")
 text = "Shop"
 
 [node name="OpenButton" type="Button" parent="OpenShopButton"]
@@ -101,6 +143,7 @@ offset_right = 2040.0
 offset_bottom = 1641.0
 scale = Vector2(0.056732, 0.056732)
 focus_mode = 0
+theme_override_constants/icon_max_width = 0
 icon = ExtResource("1_r2p71")
 
 [connection signal="pressed" from="ShopInterface/CloseShopButton/CloseButton" to="ShopInterface" method="close"]

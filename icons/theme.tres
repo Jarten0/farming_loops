@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dpx10in8ntqwb"]
+
+[ext_resource type="FontFile" uid="uid://d23l4is4b6y8h" path="res://icons/NataSans-SemiBold.ttf" id="1_yf673"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xd0kx"]
+bg_color = Color(0.945955, 0.898794, 0.863681, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.444388, 0.278274, 0.210914, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf673"]
+bg_color = Color(0.895827, 0.80833, 0.742534, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.444388, 0.278274, 0.210914, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ug2s"]
+bg_color = Color(0.758197, 0.61418, 0.503238, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.444388, 0.278274, 0.210914, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[resource]
+Button/colors/font_color = Color(0.329731, 0.200866, 0.148661, 1)
+Button/colors/font_hover_color = Color(0.341176, 0.215686, 0.164706, 1)
+Button/colors/font_hover_pressed_color = Color(0.329412, 0.2, 0.14902, 1)
+Button/colors/font_pressed_color = Color(0.372549, 0.247059, 0.196078, 1)
+Button/constants/icon_max_width = 40
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_yf673")
+Button/styles/hover = SubResource("StyleBoxFlat_xd0kx")
+Button/styles/normal = SubResource("StyleBoxFlat_yf673")
+Button/styles/pressed = SubResource("StyleBoxFlat_2ug2s")
+Label/fonts/font = ExtResource("1_yf673")

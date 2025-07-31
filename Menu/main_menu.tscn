@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqlkuyon6wf7t"]
+
+[ext_resource type="Theme" uid="uid://dpx10in8ntqwb" path="res://icons/theme.tres" id="1_sla5p"]
+
+[node name="Main menu" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1154.0
+offset_bottom = 649.0
+
+[node name="buttons" type="VBoxContainer" parent="."]
+offset_left = 770.0
+offset_top = 431.0
+offset_right = 1056.0
+offset_bottom = 553.0
+
+[node name="Start" type="Button" parent="buttons"]
+layout_mode = 2
+theme = ExtResource("1_sla5p")
+text = "START"
+
+[node name="Quit" type="Button" parent="buttons"]
+layout_mode = 2
+theme = ExtResource("1_sla5p")
+text = "Quit"

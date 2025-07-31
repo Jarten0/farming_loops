@@ -118,17 +118,14 @@ attached = NodePath("../Earth")
 
 [node name="Flower2" type="Sprite2D" parent="Flower"]
 position = Vector2(-308.994, 129.778)
-scale = Vector2(1, 1)
 texture = ExtResource("11_0ponj")
 
 [node name="Flower3" type="Sprite2D" parent="Flower"]
 position = Vector2(308.994, 197.756)
-scale = Vector2(1, 1)
 texture = ExtResource("11_0ponj")
 
 [node name="Flower4" type="Sprite2D" parent="Flower"]
 position = Vector2(166.857, 278.095)
-scale = Vector2(1, 1)
 texture = ExtResource("11_0ponj")
 
 [connection signal="pressed" from="UI/Shop/ShopInterface/Button" to="Protag" method="plant" binds= [1]]
