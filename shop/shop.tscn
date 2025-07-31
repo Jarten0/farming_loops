@@ -25,13 +25,12 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_sxvro")
-buttons = [NodePath("Blueberry"), NodePath("strawberry"), NodePath("Carrots"), NodePath("tomatoes"), NodePath("Wheat"), NodePath("CloseShopButton")]
+buttons = [NodePath("Blueberry"), NodePath("tomatoes"), NodePath("CloseButton")]
 
 [node name="Blueberry" type="Button" parent="ShopInterface"]
 layout_mode = 2
-offset_top = 27.0
 offset_right = 69.0
-offset_bottom = 108.08
+offset_bottom = 81.0802
 focus_mode = 0
 theme = ExtResource("2_mrnko")
 theme_override_font_sizes/font_size = 10
@@ -40,11 +39,11 @@ icon = ExtResource("3_bv5vx")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="strawberry" type="Button" parent="ShopInterface"]
+[node name="strawberry" type="Button" parent="ShopInterface/Blueberry"]
 layout_mode = 2
-offset_top = 112.0
-offset_right = 69.0
-offset_bottom = 193.08
+offset_left = 64.0
+offset_right = 133.0
+offset_bottom = 81.0802
 focus_mode = 0
 theme = ExtResource("2_mrnko")
 theme_override_font_sizes/font_size = 10
@@ -53,24 +52,11 @@ icon = ExtResource("4_mmyc1")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="Carrots" type="Button" parent="ShopInterface"]
-layout_mode = 2
-offset_top = 197.0
-offset_right = 69.0
-offset_bottom = 278.08
-focus_mode = 0
-theme = ExtResource("2_mrnko")
-theme_override_font_sizes/font_size = 10
-text = "Carrots"
-icon = ExtResource("5_orod7")
-icon_alignment = 1
-vertical_icon_alignment = 0
-
 [node name="tomatoes" type="Button" parent="ShopInterface"]
 layout_mode = 2
-offset_top = 282.0
+offset_top = 88.0
 offset_right = 69.0
-offset_bottom = 363.08
+offset_bottom = 169.08
 focus_mode = 0
 theme = ExtResource("2_mrnko")
 theme_override_font_sizes/font_size = 10
@@ -79,11 +65,24 @@ icon = ExtResource("6_cd0xb")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="Wheat" type="Button" parent="ShopInterface"]
+[node name="Carrots" type="Button" parent="ShopInterface/tomatoes"]
 layout_mode = 2
-offset_top = 367.0
-offset_right = 69.0
-offset_bottom = 448.08
+offset_left = 64.0
+offset_right = 133.0
+offset_bottom = 81.0802
+focus_mode = 0
+theme = ExtResource("2_mrnko")
+theme_override_font_sizes/font_size = 10
+text = "Carrots"
+icon = ExtResource("5_orod7")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Wheat" type="Button" parent="ShopInterface/tomatoes"]
+layout_mode = 2
+offset_left = 128.0
+offset_right = 197.0
+offset_bottom = 81.0802
 focus_mode = 0
 theme = ExtResource("2_mrnko")
 theme_override_font_sizes/font_size = 10
@@ -92,20 +91,13 @@ icon = ExtResource("7_yrv44")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="CloseShopButton" type="Control" parent="ShopInterface"]
-layout_mode = 2
-anchors_preset = 0
-offset_top = 452.0
-offset_right = 69.0
-offset_bottom = 452.0
-
-[node name="CloseButton" type="Button" parent="ShopInterface/CloseShopButton"]
+[node name="CloseButton" type="Button" parent="ShopInterface"]
+z_index = -1
 layout_mode = 0
-offset_left = 2.0
-offset_top = -3.0
-offset_right = 2036.0
-offset_bottom = 1634.0
-scale = Vector2(0.056732, 0.056732)
+offset_top = 176.0
+offset_right = 2034.0
+offset_bottom = 2333.0
+scale = Vector2(0.0321338, 0.0321338)
 focus_mode = 0
 theme_override_constants/icon_max_width = 0
 theme_override_fonts/font = ExtResource("8_pafut")
@@ -115,36 +107,27 @@ icon = ExtResource("1_r2p71")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="OpenShopButton" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 7.0
-offset_top = -94.0
-offset_right = 47.0
-offset_bottom = -54.0
-script = ExtResource("3_givde")
-
-[node name="Label" type="Label" parent="OpenShopButton"]
-z_index = 1
-layout_mode = 2
-offset_left = 24.0
-offset_top = 8.0
-offset_right = 105.0
-offset_bottom = 31.0
-scale = Vector2(0.820655, 0.820655)
-theme = ExtResource("2_mrnko")
-text = "Shop"
-
-[node name="OpenButton" type="Button" parent="OpenShopButton"]
+[node name="OpenButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 4.0
-offset_right = 2040.0
-offset_bottom = 1641.0
-scale = Vector2(0.056732, 0.056732)
+offset_top = -64.0
+offset_right = 2034.0
+offset_bottom = 1573.0
+scale = Vector2(0.0324647, 0.0324647)
 focus_mode = 0
 theme_override_constants/icon_max_width = 0
 icon = ExtResource("1_r2p71")
+script = ExtResource("3_givde")
 
-[connection signal="pressed" from="ShopInterface/CloseShopButton/CloseButton" to="ShopInterface" method="close"]
-[connection signal="pressed" from="OpenShopButton/OpenButton" to="ShopInterface" method="open"]
+[node name="Label" type="Label" parent="OpenButton"]
+z_index = 1
+layout_mode = 2
+offset_left = 246.421
+offset_top = 6.10352e-05
+offset_right = 327.421
+offset_bottom = 23.0001
+scale = Vector2(16.7431, 18.3429)
+theme = ExtResource("2_mrnko")
+text = "Shop"
+
+[connection signal="pressed" from="ShopInterface/CloseButton" to="ShopInterface" method="close"]
+[connection signal="pressed" from="OpenButton" to="ShopInterface" method="open"]

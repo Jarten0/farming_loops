@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://te627hnr5stl"]
+
+[ext_resource type="Texture2D" uid="uid://cjpaogi6r875l" path="res://plants/wheat/wheat_golden.png" id="1_m7cdt"]
+[ext_resource type="Script" uid="uid://b3fhnmv0trj7m" path="res://plants/plant.gd" id="2_jmi3w"]
+[ext_resource type="Texture2D" uid="uid://c1i0l2icwdhcw" path="res://plants/wheat/wheat.png" id="3_45k2f"]
+
+[node name="Wheat" type="Sprite2D"]
+scale = Vector2(0.212683, 0.212683)
+texture = ExtResource("1_m7cdt")
+script = ExtResource("2_jmi3w")
+Type = 6
+stage_textures = Array[Texture]([ExtResource("3_45k2f")])

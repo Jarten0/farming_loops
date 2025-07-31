@@ -1,13 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://dxfcusyfc08sb"]
 
 [ext_resource type="Texture2D" uid="uid://bb8xtyotrin50" path="res://plants/berry/simple_bush.png" id="1_2s2s4"]
-[ext_resource type="Script" uid="uid://uq43pdugi50e" path="res://plants/berry/berry_bush.gd" id="2_4h6sk"]
+[ext_resource type="Script" uid="uid://b3fhnmv0trj7m" path="res://plants/plant.gd" id="2_d8myi"]
 [ext_resource type="Texture2D" uid="uid://cqdyju432ut2u" path="res://plants/berry/blueberry_bush.png" id="3_6xexu"]
 
 [node name="BerryBush" type="Sprite2D"]
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_2s2s4")
-script = ExtResource("2_4h6sk")
-StageOne = ExtResource("1_2s2s4")
-StageTwo = ExtResource("3_6xexu")
+texture = ExtResource("3_6xexu")
+script = ExtResource("2_d8myi")
 Type = 1
+stage_textures = Array[Texture]([ExtResource("1_2s2s4")])

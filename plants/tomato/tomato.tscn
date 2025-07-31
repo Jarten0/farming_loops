@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck5vrhxhucjlo"]
+
+[ext_resource type="Texture2D" uid="uid://mjgfxtgm8jo6" path="res://plants/tomato/TOMATOS_GROWN.png" id="1_if5c1"]
+[ext_resource type="Script" uid="uid://b3fhnmv0trj7m" path="res://plants/plant.gd" id="2_jy6mn"]
+[ext_resource type="Texture2D" uid="uid://fdm7j0wbeqya" path="res://plants/tomato/TOMATOS.png" id="3_oyt4h"]
+
+[node name="Tomato" type="Sprite2D"]
+scale = Vector2(0.258717, 0.258717)
+texture = ExtResource("1_if5c1")
+script = ExtResource("2_jy6mn")
+Type = 4
+progression_rate = 0.1
+stage_textures = Array[Texture]([ExtResource("3_oyt4h")])

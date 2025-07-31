@@ -1,8 +1,8 @@
 extends Attachable
 
-@export var berries: int = 0
+@export var inventory: Dictionary[String, int]
 @export var plant_type: Harvestable.PlantType
-
+@export var root_node: Collections
 
 func _physics_process(delta: float) -> void:
 	var input: Vector2 = Vector2.ZERO
@@ -22,7 +22,7 @@ func process_harvests() -> void:
 	if !Input.is_action_just_pressed("harvest"):
 		return
 	
-	for plant: Harvestable in %Collections.harvestable_plants:
+	for plant: Harvestable in root_node.harvestable_plants:
 		if !plant.ready_to_harvest:
 			continue
 	
@@ -37,7 +37,9 @@ func harvest(plant: Harvestable):
 		Harvestable.PlantType.None:
 			pass
 		Harvestable.PlantType.Berry:
-			berries += 1;
+			inventory["berries"] += 1;
+		Harvestable.PlantType.Flower:
+			inventory["flowers"] += 1;
 		
 	
 func process_plants():
@@ -52,19 +54,37 @@ func plant(type: Harvestable.PlantType):
 		Harvestable.PlantType.None:
 			return;
 		Harvestable.PlantType.Berry:
-			if berries >= 3:
-				berries -= 3
-			else:
+			if inventory["berries"] < 3:
 				return
+			inventory["berries"] -= 3
+		Harvestable.PlantType.Strawberry:
+			if inventory["strawberries"] < 5:
+				return
+			inventory["strawberries"] -= 5
+		Harvestable.PlantType.Flower:
+			if inventory["flowers"] < 5:
+				return
+			inventory["flowers"] -= 5
+		Harvestable.PlantType.Tomato:
+			if inventory["tomatos"] < 5:
+				return
+			inventory["tomatos"] -= 5
+		Harvestable.PlantType.Carrot:
+			if inventory["carrots"] < 5:
+				return
+			inventory["carrots"] -= 5
+		Harvestable.PlantType.Wheat:
+			if inventory["wheat"] < 5:
+				return
+			inventory["wheat"] -= 5
 
-	var scene: PackedScene = %Collections.plantable_plants[type]
+	var scene: PackedScene = root_node.plantable_plants[type]
 	
 	var plant: Harvestable = scene.instantiate()
 	plant.global_position = global_position
 	plant.attached = attached
-	plant.instantiated = true
-	%Collections.harvestable_plants.append(plant)
+	root_node.harvestable_plants.append(plant)
 	
-	$"/root/Main Level".add_child(plant, true)
+	root_node.add_child(plant, true)
 	
 	pass

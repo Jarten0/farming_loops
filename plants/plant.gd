@@ -5,6 +5,10 @@ enum PlantType {
 	None = 0,
 	Berry = 1,
 	Flower = 2,
+	Strawberry = 3,
+	Tomato = 4,
+	Carrot = 5,
+	Wheat = 6,
 }
 
 @export var Type: PlantType
@@ -15,17 +19,17 @@ enum PlantType {
 @export var stage_textures: Array[Texture] 
 var harvest_texture: Texture
 
-var instantiated = false
-func _ready() -> void:
-	harvest_texture = self.texture
-	if !instantiated:
-		%Collections.harvestable_plants.append(self)
+func _ready():
+	if !harvest_texture:
+		harvest_texture = self.texture
 
 func _process(delta: float) -> void:
 	if ready_to_harvest:
 		self.texture = harvest_texture
 		return
-	var stage = progress_to_harvest * stage_textures.count()
+	var stage = floor(progress_to_harvest * stage_textures.size())
+	self.texture = stage_textures[stage]
+	
 
 func _physics_process(delta: float) -> void:
 	if ready_to_harvest:

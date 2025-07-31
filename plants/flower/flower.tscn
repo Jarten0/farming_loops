@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://n5xmafpcx5of"]
+
+[ext_resource type="Texture2D" uid="uid://mcaaebyi6dtk" path="res://plants/flower/basic_bloomer.png" id="1_myatj"]
+[ext_resource type="Script" uid="uid://b3fhnmv0trj7m" path="res://plants/plant.gd" id="2_myatj"]
+[ext_resource type="Texture2D" uid="uid://crcqvynlkd3uk" path="res://plants/flower/basic_bloomer_0.png" id="3_h46ox"]
+[ext_resource type="Texture2D" uid="uid://cll3gg35glpi4" path="res://plants/flower/basic_bloomer_1.png" id="4_crvj7"]
+
+[node name="Flower" type="Sprite2D"]
+texture = ExtResource("1_myatj")
+script = ExtResource("2_myatj")
+Type = 2
+progression_rate = 0.16
+stage_textures = Array[Texture]([ExtResource("3_h46ox"), ExtResource("4_crvj7")])
+
+[node name="Flower2" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-308.994, 129.778)
+texture = ExtResource("4_crvj7")
+
+[node name="Flower3" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(234.836, 296.635)
+texture = ExtResource("3_h46ox")
+
+[node name="Flower4" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(302.815, 55.6191)
+texture = ExtResource("4_crvj7")
