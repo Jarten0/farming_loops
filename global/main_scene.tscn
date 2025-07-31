@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bfefg40nn8vlj"]
+[gd_scene load_steps=27 format=3 uid="uid://bfefg40nn8vlj"]
 
 [ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://protag/character_game_jam.png" id="1_6ebau"]
 [ext_resource type="Script" uid="uid://tnghoijkctsu" path="res://global/main_camera.gd" id="1_xckwb"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://iku6nsm6v5yv" path="res://planet_ui/planet_ui.tscn" id="16_w46co"]
 [ext_resource type="PackedScene" uid="uid://c8q601qj5emcv" path="res://planet_ui/planet_pointer.tscn" id="17_62ela"]
 [ext_resource type="PackedScene" uid="uid://20pneilng725" path="res://planets/Big_Low_Grav.tscn" id="21_s4p88"]
+[ext_resource type="PackedScene" uid="uid://bywyunnijc74k" path="res://planets/Small_Dense.tscn" id="22_orquc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eely4"]
 
@@ -39,7 +40,7 @@ shader_parameter/Horizon_Sharpness = 5.515
 script = ExtResource("5_xckwb")
 harvestable_plants = [NodePath("BerryBush"), NodePath("BerryBush2"), NodePath("BerryBush3"), NodePath("Flower")]
 plantable_plants = Array[PackedScene]([null, ExtResource("4_y5dew"), ExtResource("3_uueth"), ExtResource("12_0ponj"), ExtResource("5_eely4"), ExtResource("6_wdra6"), ExtResource("7_w46co")])
-planets = [NodePath("Earth"), NodePath("Earth2")]
+planets = [NodePath("Earth"), NodePath("Earth2"), NodePath("Earth3")]
 
 [node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
@@ -48,34 +49,41 @@ scale = Vector2(0.1, 0.101038)
 ignore_rotation = false
 zoom = Vector2(0.02, 0.02)
 script = ExtResource("1_xckwb")
-target = NodePath("../Protag2/Protag")
+target = NodePath("../Protag/Protag")
 mode = 0
 target_zoom = Vector2(0.2, 0.2)
 
-[node name="Protag2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root_node", "characterbody", "attached")]
+[node name="Protag" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root_node", "characterbody", "attached")]
 position = Vector2(-3, -620)
 script = ExtResource("2_6c5vy")
 inventory = Dictionary[String, int]({
 "berries": 0,
+"blueberry_seeds": 0,
+"carrot_seeds": 0,
 "carrots": 0,
+"flower_seeds": 0,
 "flowers": 0,
 "planets": 0,
 "strawberries": 0,
+"strawberry_seeds": 0,
+"tomato_seeds": 0,
 "tomatos": 0,
-"wheat": 0
+"wheat": 0,
+"wheat_seeds": 0
 })
 plant_type = 1
 root_node = NodePath("..")
 characterbody = NodePath(".")
 jump_strength = 3000.0
+move_speed = 2200.0
 attached = NodePath("../Earth")
 
-[node name="Protag" type="Sprite2D" parent="Protag2"]
+[node name="Protag" type="Sprite2D" parent="Protag"]
 position = Vector2(-2.38419e-07, 3.8147e-06)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_6ebau")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Protag2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Protag"]
 scale = Vector2(4.47792, 5.91898)
 shape = SubResource("CapsuleShape2D_eely4")
 
@@ -87,7 +95,7 @@ scale = Vector2(9900, 9900)
 mesh = SubResource("QuadMesh_8mm7a")
 texture = ExtResource("3_kea51")
 script = ExtResource("12_wdra6")
-density_modifier = 3.0
+density_modifier = 2.5
 
 [node name="Sun" type="Area2D" parent="." node_paths=PackedStringArray("root_node")]
 position = Vector2(48, -6568)
@@ -104,7 +112,7 @@ metadata/_edit_lock_ = true
 [node name="PointLight2D" type="PointLight2D" parent="Sun"]
 color = Color(0.7469, 0.899352, 0.97, 0.431373)
 texture = ExtResource("6_6c5vy")
-texture_scale = 8.0
+texture_scale = 16.0
 metadata/_edit_lock_ = true
 
 [node name="Sun" type="Sprite2D" parent="Sun"]
@@ -137,16 +145,6 @@ position = Vector2(-1281, 210)
 scale = Vector2(0.161815, 0.161815)
 attached = NodePath("../Earth")
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="Shop" parent="UI" instance=ExtResource("2_s18ad")]
-scale = Vector2(1.9, 1.9)
-
-[node name="PlanetUI" parent="UI" node_paths=PackedStringArray("collection", "camera") instance=ExtResource("16_w46co")]
-collection = NodePath("../..")
-pointer = ExtResource("17_62ela")
-camera = NodePath("../../MainCamera")
-
 [node name="Backdrop" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -162,9 +160,26 @@ offset_bottom = 409.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.993093)
+mouse_filter = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Shop" parent="UI" node_paths=PackedStringArray("protag") instance=ExtResource("2_s18ad")]
+scale = Vector2(1.9, 1.9)
+protag = NodePath("../../Protag")
+
+[node name="PlanetUI" parent="UI" node_paths=PackedStringArray("collection", "camera") instance=ExtResource("16_w46co")]
+collection = NodePath("../..")
+pointer = ExtResource("17_62ela")
+camera = NodePath("../../MainCamera")
 
 [node name="Earth2" parent="." instance=ExtResource("21_s4p88")]
-position = Vector2(16518, 7844)
-scale = Vector2(9900, 9900)
+position = Vector2(72195, 50890)
+scale = Vector2(8000, 8000)
+size = 4000.0
 
-[editable path="UI/Shop"]
+[node name="Earth3" parent="." instance=ExtResource("22_orquc")]
+position = Vector2(205, 33077)
+scale = Vector2(1000, 1000)
+
+[connection signal="purchased" from="UI/Shop" to="Protag" method="_on_shop_purchased"]

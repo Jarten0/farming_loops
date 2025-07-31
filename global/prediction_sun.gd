@@ -24,8 +24,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if base_sun.step % 10 == 0 && simuli[base_sun.step / 10]:
-		simuli[base_sun.step / 10].queue_free()
+	if base_sun.step % 10 == 0 && simuli[base_sun.step / 10 % 1000]:
+		simuli[base_sun.step / 10 % 1000].queue_free()
 	
 	if step >= max_steps + base_sun.step - 9:
 		return

@@ -11,6 +11,24 @@ enum PlantType {
 	Wheat = 6,
 }
 
+static func variant_to_string(type: PlantType) -> String:
+	match type:
+		Harvestable.PlantType.None:
+			return "";
+		Harvestable.PlantType.Berry:
+			return "blueberry"
+		Harvestable.PlantType.Strawberry:
+			return "strawberry"
+		Harvestable.PlantType.Flower:
+			return "flower"
+		Harvestable.PlantType.Tomato:
+			return "tomato"
+		Harvestable.PlantType.Carrot:
+			return "carrot"
+		Harvestable.PlantType.Wheat:
+			return "wheat"
+	return ""
+
 @export var Type: PlantType
 @export var progress_to_harvest: float
 @export var progression_rate: float = 0.2

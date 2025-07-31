@@ -33,9 +33,9 @@ func _physics_process(delta: float) -> void:
 		var target_velocity = (global_position - targetted_planet.global_position) \
 			.normalized().rotated(90.) * targetted_planet.size * targetted_planet.density_modifier
 		var target_distance = targetted_planet.size * 2;
-		velocity += (target_velocity - velocity) * 0.8 * delta;
-		var distance_from_target = position.distance_to(target_distance)
-		velocity += distance_from_target * delta
+		velocity += (target_velocity - velocity) * 80 * delta;
+		#var distance_from_target = position.distance_to(target_distance)
+		#velocity += distance_from_target * delta * -100.
 		
 	
 	position += velocity * delta

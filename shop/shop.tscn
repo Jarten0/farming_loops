@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://c3shi0ab66n7r"]
+[gd_scene load_steps=12 format=3 uid="uid://c3shi0ab66n7r"]
 
+[ext_resource type="Script" uid="uid://koxspqryfwk6" path="res://shop/shop_ui.gd" id="1_mmyc1"]
 [ext_resource type="Texture2D" uid="uid://byqika8as6w5t" path="res://shop/icon.png" id="1_r2p71"]
 [ext_resource type="Theme" uid="uid://dpx10in8ntqwb" path="res://icons/theme.tres" id="2_mrnko"]
 [ext_resource type="Script" uid="uid://bx60dep3nbnlo" path="res://shop/shop_interface.gd" id="2_sxvro"]
@@ -17,6 +18,7 @@ z_index = 100
 z_as_relative = false
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_mmyc1")
 
 [node name="ShopInterface" type="Control" parent="." node_paths=PackedStringArray("buttons")]
 unique_name_in_owner = true
@@ -129,5 +131,10 @@ scale = Vector2(16.7431, 18.3429)
 theme = ExtResource("2_mrnko")
 text = "Shop"
 
+[connection signal="pressed" from="ShopInterface/Blueberry" to="." method="_on_blueberry_pressed"]
+[connection signal="pressed" from="ShopInterface/Blueberry/strawberry" to="." method="_on_strawberry_pressed"]
+[connection signal="pressed" from="ShopInterface/tomatoes" to="." method="_on_tomatoes_pressed"]
+[connection signal="pressed" from="ShopInterface/tomatoes/Carrots" to="." method="_on_carrots_pressed"]
+[connection signal="pressed" from="ShopInterface/tomatoes/Wheat" to="." method="_on_wheat_pressed"]
 [connection signal="pressed" from="ShopInterface/CloseButton" to="ShopInterface" method="close"]
 [connection signal="pressed" from="OpenButton" to="ShopInterface" method="open"]

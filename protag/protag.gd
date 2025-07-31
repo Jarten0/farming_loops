@@ -1,3 +1,4 @@
+class_name Protag
 extends Attachable
 
 @export var inventory: Dictionary[String, int]
@@ -9,6 +10,7 @@ extends Attachable
 @export var characterbody: CharacterBody2D
 @export var jump_strength: float = 100
 @export var move_speed: float = 1000
+
 
 func _physics_process(delta: float) -> void:
 	process_gravity(delta)
@@ -70,6 +72,63 @@ func process_plants():
 
 
 func plant(type: Harvestable.PlantType):
+	var seed = Harvestable.variant_to_string(type) + "_seeds"
+
+	var scene: PackedScene = root_node.plantable_plants[type]
+	
+	var plant: Harvestable = scene.instantiate()
+	plant.global_position = global_position
+	plant.attached = attached
+	root_node.harvestable_plants.append(plant)
+	
+	root_node.add_child(plant, true)
+	
+	pass
+
+func process_gravity(delta: float):
+	if attached:
+		return
+		
+	var input: Vector2 = Vector2.ZERO
+	if Input.is_action_pressed("move_left"):
+		input += Vector2.LEFT.rotated(global_rotation)
+	if Input.is_action_pressed("move_right"):
+		input += Vector2.RIGHT.rotated(global_rotation)
+	if Input.is_action_pressed("fall"):
+		input += Vector2.DOWN.rotated(global_rotation)
+	if Input.is_action_pressed("float"):
+		input += Vector2.UP.rotated(global_rotation)
+	
+	for planet in root_node.planets:
+		if planet.global_position.distance_squared_to(global_position) < pow(planet.size, 2):
+			attached = planet
+			characterbody.velocity = Vector2.ZERO
+			return
+		if planet.global_position.distance_squared_to(global_position) - pow(planet.size * planet.density_modifier + 1000, 2) < pow(planet.size, 2) :
+			var distance = ((planet.global_position - global_position))
+			var grav_force = (-pow(1.1, distance.length() / 1000.) + 1000) 
+			if grav_force < 0:
+				print("ignored")
+				continue
+			var force = grav_force * distance.normalized() * delta * planet.density_modifier
+			characterbody.velocity += force + (input * 10);
+			print("distance")
+	
+	var MAX_DISTANCE: float = 35_000
+	if Input.is_action_pressed("fall"):
+		MAX_DISTANCE -= 10_000
+	if global_position.length_squared() > pow(MAX_DISTANCE, 2):
+		var force = -position.normalized() \
+			* max(abs(position.x) - MAX_DISTANCE, abs(position.y) - MAX_DISTANCE) \
+			* delta
+		characterbody.velocity += force;
+		if characterbody.velocity.dot(force) > 0:
+			characterbody.velocity += force;
+		
+	
+
+
+func _on_shop_purchased(type: Harvestable.PlantType) -> void:
 	match plant_type:
 		Harvestable.PlantType.None:
 			return;
@@ -97,39 +156,19 @@ func plant(type: Harvestable.PlantType):
 			if inventory["wheat"] < 2:
 				return
 			inventory["wheat"] -= 2
-
-	var scene: PackedScene = root_node.plantable_plants[type]
 	
-	var plant: Harvestable = scene.instantiate()
-	plant.global_position = global_position
-	plant.attached = attached
-	root_node.harvestable_plants.append(plant)
-	
-	root_node.add_child(plant, true)
-	
-	pass
-
-func process_gravity(delta: float):
-	if attached:
-		return
-	
-	for planet in root_node.planets:
-		if planet.global_position.distance_squared_to(global_position) < pow(planet.size, 2):
-			attached = planet
-			characterbody.velocity = Vector2.ZERO
-			return
-		if planet.global_position.distance_squared_to(global_position) - pow(planet.size * planet.density_modifier + 1000, 2) < pow(planet.size, 2) :
-			var distance = (planet.global_position - global_position)
-			var grav_force = (-pow(1.1, distance.length() / 1000.) + 1000) 
-			if grav_force < 0:
-				print("ignored")
-				continue
-			characterbody.velocity += grav_force * distance.normalized() * delta * planet.density_modifier;
-			print("distance")
-		
-		
-	var input: Vector2 = Vector2.ZERO
-	if Input.is_action_pressed("move_left"):
-		input += Vector2.LEFT.rotated(global_rotation)
-	if Input.is_action_pressed("move_right"):
-		input += Vector2.RIGHT.rotated(global_rotation)
+	match type:
+		Harvestable.PlantType.None:
+			pass
+		Harvestable.PlantType.Berry:
+			inventory["blueberry_seeds"] += 1
+		Harvestable.PlantType.Flower:
+			inventory["flower_seeds"] += 1
+		Harvestable.PlantType.Strawberry:
+			inventory["strawberry_seeds"] += 1
+		Harvestable.PlantType.Tomato:
+			inventory["tomato_seeds"] += 1
+		Harvestable.PlantType.Carrot:
+			inventory["carrot_seeds"] += 1
+		Harvestable.PlantType.Wheat:
+			inventory["wheat_seeds"] += 1
