@@ -43,7 +43,11 @@ func harvest(plant: Harvestable):
 func process_plants():
 	if !Input.is_action_just_pressed("plant"):
 		return;
+		
+	plant(plant_type)
 
+
+func plant(type: Harvestable.PlantType):
 	match plant_type:
 		Harvestable.PlantType.None:
 			return;
@@ -53,7 +57,7 @@ func process_plants():
 			else:
 				return
 
-	var scene: PackedScene = %Collections.plantable_plants[plant_type]
+	var scene: PackedScene = %Collections.plantable_plants[type]
 	
 	var plant: Harvestable = scene.instantiate()
 	plant.global_position = global_position
@@ -62,4 +66,5 @@ func process_plants():
 	%Collections.harvestable_plants.append(plant)
 	
 	$"/root/Main Level".add_child(plant, true)
-		
+	
+	pass

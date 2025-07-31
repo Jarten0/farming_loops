@@ -5,6 +5,9 @@ extends Node2D
 
  
 func _physics_process(delta: float) -> void:
+	if !attached:
+		return
+
 	const DISTANCE: float = 5000; # export on attaching later
 	var new_pos = (global_position - attached.global_position).normalized();
 	global_position = (new_pos * DISTANCE) + attached.global_position;

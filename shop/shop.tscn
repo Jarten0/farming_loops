@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3shi0ab66n7r"]
+
+[ext_resource type="Texture2D" uid="uid://byqika8as6w5t" path="res://shop/icon.png" id="1_r2p71"]
+[ext_resource type="Script" uid="uid://bx60dep3nbnlo" path="res://shop/shop_interface.gd" id="2_sxvro"]
+[ext_resource type="Script" uid="uid://dktobp2ntbcrs" path="res://shop/open_shop_button.gd" id="3_givde"]
+
+[node name="Shop" type="Control"]
+top_level = true
+z_index = 100
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ShopInterface" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_sxvro")
+buttons = [NodePath("Button"), NodePath("Button2"), NodePath("Button3"), NodePath("CloseShopButton")]
+
+[node name="Button" type="Button" parent="ShopInterface"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 182.0
+offset_bottom = 43.0
+focus_mode = 0
+text = "Plant blueberry bush"
+
+[node name="Button2" type="Button" parent="ShopInterface"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 61.0
+offset_right = 180.0
+offset_bottom = 92.0
+focus_mode = 0
+text = "Plant blue2"
+
+[node name="Button3" type="Button" parent="ShopInterface"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 117.0
+offset_right = 178.0
+offset_bottom = 148.0
+focus_mode = 0
+text = "Plant bl3"
+
+[node name="CloseShopButton" type="Control" parent="ShopInterface"]
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 165.0
+offset_right = 65.0
+offset_bottom = 205.0
+
+[node name="Label" type="Label" parent="ShopInterface/CloseShopButton"]
+z_index = 1
+layout_mode = 2
+offset_left = 28.0
+offset_top = 7.0
+offset_right = 109.0
+offset_bottom = 30.0
+scale = Vector2(0.820655, 0.820655)
+text = "Close"
+
+[node name="CloseButton" type="Button" parent="ShopInterface/CloseShopButton"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 2040.0
+offset_bottom = 1641.0
+scale = Vector2(0.056732, 0.056732)
+focus_mode = 0
+icon = ExtResource("1_r2p71")
+
+[node name="OpenShopButton" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 7.0
+offset_top = -94.0
+offset_right = 47.0
+offset_bottom = -54.0
+script = ExtResource("3_givde")
+
+[node name="Label" type="Label" parent="OpenShopButton"]
+z_index = 1
+layout_mode = 2
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 105.0
+offset_bottom = 31.0
+scale = Vector2(0.820655, 0.820655)
+text = "Shop"
+
+[node name="OpenButton" type="Button" parent="OpenShopButton"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 2040.0
+offset_bottom = 1641.0
+scale = Vector2(0.056732, 0.056732)
+focus_mode = 0
+icon = ExtResource("1_r2p71")
+
+[connection signal="pressed" from="ShopInterface/CloseShopButton/CloseButton" to="ShopInterface" method="close"]
+[connection signal="pressed" from="OpenShopButton/OpenButton" to="ShopInterface" method="open"]

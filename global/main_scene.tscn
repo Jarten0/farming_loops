@@ -1,13 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfefg40nn8vlj"]
+[gd_scene load_steps=17 format=3 uid="uid://bfefg40nn8vlj"]
 
 [ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://protag/character_game_jam.png" id="1_6ebau"]
+[ext_resource type="Script" uid="uid://tnghoijkctsu" path="res://global/main_camera.gd" id="1_xckwb"]
 [ext_resource type="Script" uid="uid://brsiganasfwku" path="res://protag/protag.gd" id="2_6c5vy"]
+[ext_resource type="PackedScene" uid="uid://c3shi0ab66n7r" path="res://shop/shop.tscn" id="2_s18ad"]
 [ext_resource type="Texture2D" uid="uid://dcjn83y1bjgc4" path="res://planets/world.png" id="3_kea51"]
 [ext_resource type="PackedScene" uid="uid://dxfcusyfc08sb" path="res://plants/berry/berry_bush.tscn" id="4_y5dew"]
 [ext_resource type="Script" uid="uid://60veij5n47b6" path="res://global/interaction.gd" id="5_xckwb"]
 [ext_resource type="Texture2D" uid="uid://cr3hkpofs4phx" path="res://planets/sun.png" id="6_6c5vy"]
 [ext_resource type="Shader" uid="uid://dsfw26xqtiyv2" path="res://shaders/Sky_Shader.tres" id="6_y5dew"]
 [ext_resource type="Script" uid="uid://cqi8ky2e2nm1p" path="res://planets/sun.gd" id="7_kea51"]
+[ext_resource type="Texture2D" uid="uid://mcaaebyi6dtk" path="res://plants/flower/basic_bloomer.png" id="11_0ponj"]
+[ext_resource type="Script" uid="uid://b3fhnmv0trj7m" path="res://plants/plant.gd" id="12_pp21b"]
+[ext_resource type="Texture2D" uid="uid://crcqvynlkd3uk" path="res://plants/flower/basic_bloomer_0.png" id="13_qroom"]
+[ext_resource type="Texture2D" uid="uid://cll3gg35glpi4" path="res://plants/flower/basic_bloomer_1.png" id="14_eely4"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_8mm7a"]
 
@@ -20,26 +26,30 @@ shader_parameter/Horizon_Sharpness = 5.515
 
 [node name="Main Level" type="Node2D"]
 
+[node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
+position = Vector2(-3, 63)
+scale = Vector2(0.1, 0.101038)
+ignore_rotation = false
+zoom = Vector2(0.02, 0.02)
+script = ExtResource("1_xckwb")
+target = NodePath("../Protag")
+mode = 0
+target_zoom = Vector2(0.2, 0.2)
+
 [node name="Protag" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
 position = Vector2(-3, 63)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_6ebau")
 script = ExtResource("2_6c5vy")
-berries = null
 plant_type = 1
 attached = NodePath("../Earth")
-
-[node name="MainCamera" type="Camera2D" parent="Protag"]
-unique_name_in_owner = true
-scale = Vector2(1, 1.01038)
-ignore_rotation = false
-zoom = Vector2(0.335, 0.335)
 
 [node name="Earth" type="MeshInstance2D" parent="."]
 z_index = -6
 texture_filter = 1
-position = Vector2(0, 5002)
-scale = Vector2(10000, 10000)
+position = Vector2(0, 5000)
+scale = Vector2(9900, 9900)
 mesh = SubResource("QuadMesh_8mm7a")
 texture = ExtResource("3_kea51")
 
@@ -60,21 +70,6 @@ attached = NodePath("../Earth")
 position = Vector2(3712, 1540)
 attached = NodePath("../Earth")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_xckwb")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1723.0
-offset_top = -905.0
-offset_right = 565.0
-offset_bottom = 383.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="Sun" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
 position = Vector2(120, -7101.4)
 scale = Vector2(1.9, 1.9)
@@ -87,3 +82,55 @@ attached = NodePath("../Earth")
 color = Color(0.7469, 0.899352, 0.97, 0.431373)
 texture = ExtResource("6_6c5vy")
 texture_scale = 8.0
+metadata/_edit_lock_ = true
+
+[node name="Backdrop" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Backdrop"]
+material = SubResource("ShaderMaterial_xckwb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1723.0
+offset_top = -905.0
+offset_right = 565.0
+offset_bottom = 383.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Shop" parent="UI" instance=ExtResource("2_s18ad")]
+scale = Vector2(1.9, 1.9)
+
+[node name="Flower" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
+position = Vector2(-1289, 235)
+scale = Vector2(0.161815, 0.161815)
+texture = ExtResource("11_0ponj")
+script = ExtResource("12_pp21b")
+Type = null
+progress_to_harvest = null
+progression_rate = 0.16
+ready_to_harvest = null
+stage_textures = Array[Texture]([ExtResource("13_qroom"), ExtResource("14_eely4")])
+attached = NodePath("../Earth")
+
+[node name="Flower2" type="Sprite2D" parent="Flower"]
+position = Vector2(-308.994, 129.778)
+scale = Vector2(1, 1)
+texture = ExtResource("11_0ponj")
+
+[node name="Flower3" type="Sprite2D" parent="Flower"]
+position = Vector2(308.994, 197.756)
+scale = Vector2(1, 1)
+texture = ExtResource("11_0ponj")
+
+[node name="Flower4" type="Sprite2D" parent="Flower"]
+position = Vector2(166.857, 278.095)
+scale = Vector2(1, 1)
+texture = ExtResource("11_0ponj")
+
+[connection signal="pressed" from="UI/Shop/ShopInterface/Button" to="Protag" method="plant" binds= [1]]
+
+[editable path="UI/Shop"]
