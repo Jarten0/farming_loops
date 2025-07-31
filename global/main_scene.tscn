@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfefg40nn8vlj"]
+[gd_scene load_steps=23 format=3 uid="uid://bfefg40nn8vlj"]
 
 [ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://protag/character_game_jam.png" id="1_6ebau"]
 [ext_resource type="Script" uid="uid://tnghoijkctsu" path="res://global/main_camera.gd" id="1_xckwb"]
@@ -15,8 +15,15 @@
 [ext_resource type="Script" uid="uid://cqi8ky2e2nm1p" path="res://planets/sun.gd" id="7_kea51"]
 [ext_resource type="PackedScene" uid="uid://te627hnr5stl" path="res://plants/wheat/wheat.tscn" id="7_w46co"]
 [ext_resource type="PackedScene" uid="uid://c64p3i7qsn8dw" path="res://plants/strawberry/strawberry.tscn" id="12_0ponj"]
+[ext_resource type="Script" uid="uid://b56pfl8me04lw" path="res://planets/planet.gd" id="12_wdra6"]
+[ext_resource type="PackedScene" uid="uid://iku6nsm6v5yv" path="res://planet_ui/planet_ui.tscn" id="16_w46co"]
+[ext_resource type="PackedScene" uid="uid://c8q601qj5emcv" path="res://planet_ui/planet_pointer.tscn" id="17_62ela"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eely4"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_8mm7a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_62ela"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xckwb"]
 shader = ExtResource("6_y5dew")
@@ -25,10 +32,11 @@ shader_parameter/Bottom_Color = Color(1, 1, 1, 1)
 shader_parameter/Horizon_Height = -0.505
 shader_parameter/Horizon_Sharpness = 5.515
 
-[node name="Level" type="Node2D" node_paths=PackedStringArray("harvestable_plants")]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("harvestable_plants", "planets")]
 script = ExtResource("5_xckwb")
 harvestable_plants = [NodePath("BerryBush"), NodePath("BerryBush2"), NodePath("BerryBush3"), NodePath("Flower")]
 plantable_plants = Array[PackedScene]([null, ExtResource("4_y5dew"), ExtResource("3_uueth"), ExtResource("12_0ponj"), ExtResource("5_eely4"), ExtResource("6_wdra6"), ExtResource("7_w46co")])
+planets = [NodePath("Earth")]
 
 [node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 unique_name_in_owner = true
@@ -37,14 +45,12 @@ scale = Vector2(0.1, 0.101038)
 ignore_rotation = false
 zoom = Vector2(0.02, 0.02)
 script = ExtResource("1_xckwb")
-target = NodePath("../Protag")
+target = NodePath("../Protag2/Protag")
 mode = 0
 target_zoom = Vector2(0.2, 0.2)
 
-[node name="Protag" type="Sprite2D" parent="." node_paths=PackedStringArray("root_node", "attached")]
-position = Vector2(-3, 63)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_6ebau")
+[node name="Protag2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root_node", "characterbody", "attached")]
+position = Vector2(-3, -620)
 script = ExtResource("2_6c5vy")
 inventory = Dictionary[String, int]({
 "berries": 0,
@@ -57,7 +63,18 @@ inventory = Dictionary[String, int]({
 })
 plant_type = 1
 root_node = NodePath("..")
+characterbody = NodePath(".")
+jump_strength = 3000.0
 attached = NodePath("../Earth")
+
+[node name="Protag" type="Sprite2D" parent="Protag2"]
+position = Vector2(-2.38419e-07, 3.8147e-06)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_6ebau")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Protag2"]
+scale = Vector2(4.47792, 5.91898)
+shape = SubResource("CapsuleShape2D_eely4")
 
 [node name="Earth" type="MeshInstance2D" parent="."]
 z_index = -6
@@ -66,19 +83,30 @@ position = Vector2(0, 5000)
 scale = Vector2(9900, 9900)
 mesh = SubResource("QuadMesh_8mm7a")
 texture = ExtResource("3_kea51")
+script = ExtResource("12_wdra6")
+density_modifier = 3.0
 
-[node name="Sun" type="Sprite2D" parent="." node_paths=PackedStringArray("attached")]
-position = Vector2(120, -7101.4)
-scale = Vector2(1.9, 1.9)
-texture = ExtResource("6_6c5vy")
+[node name="Sun" type="Area2D" parent="." node_paths=PackedStringArray("root_node")]
+position = Vector2(48, -6568)
+scale = Vector2(1, 0.986438)
 script = ExtResource("7_kea51")
-distance = Vector2(0, 16000)
-attached = NodePath("../Earth")
+root_node = NodePath("..")
+velocity = Vector2(5000, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun"]
+scale = Vector2(140, 140)
+shape = SubResource("CircleShape2D_62ela")
+metadata/_edit_lock_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="Sun"]
 color = Color(0.7469, 0.899352, 0.97, 0.431373)
 texture = ExtResource("6_6c5vy")
 texture_scale = 8.0
+metadata/_edit_lock_ = true
+
+[node name="Sun" type="Sprite2D" parent="Sun"]
+scale = Vector2(2, 2)
+texture = ExtResource("6_6c5vy")
 metadata/_edit_lock_ = true
 
 [node name="BerryBush" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_y5dew")]
@@ -103,6 +131,11 @@ attached = NodePath("../Earth")
 [node name="Shop" parent="UI" instance=ExtResource("2_s18ad")]
 scale = Vector2(1.9, 1.9)
 
+[node name="PlanetUI" parent="UI" node_paths=PackedStringArray("collection", "camera") instance=ExtResource("16_w46co")]
+collection = NodePath("../..")
+pointer = ExtResource("17_62ela")
+camera = NodePath("../../MainCamera")
+
 [node name="Backdrop" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -111,17 +144,12 @@ material = SubResource("ShaderMaterial_xckwb")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1723.0
-offset_top = -905.0
-offset_right = 565.0
-offset_bottom = 383.0
+offset_left = -1729.0
+offset_top = -879.0
+offset_right = 559.0
+offset_bottom = 409.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[connection signal="pressed" from="UI/Shop/ShopInterface/Blueberry" to="Protag" method="plant" binds= [1]]
-[connection signal="pressed" from="UI/Shop/ShopInterface/Blueberry/strawberry" to="Protag" method="plant" binds= [3]]
-[connection signal="pressed" from="UI/Shop/ShopInterface/tomatoes" to="Protag" method="plant" binds= [4]]
-[connection signal="pressed" from="UI/Shop/ShopInterface/tomatoes/Carrots" to="Protag" method="plant" binds= [5]]
-[connection signal="pressed" from="UI/Shop/ShopInterface/tomatoes/Wheat" to="Protag" method="plant" binds= [6]]
+scale = Vector2(1, 0.993093)
 
 [editable path="UI/Shop"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bywyunnijc74k"]
+
+[ext_resource type="Texture2D" uid="uid://dcjn83y1bjgc4" path="res://planets/world.png" id="1_uqj0k"]
+[ext_resource type="Script" uid="uid://b56pfl8me04lw" path="res://planets/planet.gd" id="2_hc8fh"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_8mm7a"]
+
+[node name="Earth3" type="MeshInstance2D"]
+z_index = -6
+texture_filter = 1
+mesh = SubResource("QuadMesh_8mm7a")
+texture = ExtResource("1_uqj0k")
+script = ExtResource("2_hc8fh")
+size = 500.0
+density_modifier = 2.0

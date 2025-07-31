@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://iku6nsm6v5yv"]
+
+[ext_resource type="Script" uid="uid://crenf8h5bpxrh" path="res://planet_ui/planet_ui.gd" id="1_bcp7v"]
+
+[node name="PlanetUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 8080.0
+scale = Vector2(0.729787, 0.514423)
+script = ExtResource("1_bcp7v")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8q601qj5emcv"]
+
+[ext_resource type="Texture2D" uid="uid://c2i0o16ua2aej" path="res://planet_ui/planet_icon.png" id="1_iv1t0"]
+
+[node name="PlanetPointer" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.240722, 0.240722)
+texture = ExtResource("1_iv1t0")
