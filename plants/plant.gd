@@ -9,6 +9,7 @@ enum PlantType {
 	Tomato = 4,
 	Carrot = 5,
 	Wheat = 6,
+	SmallPlanet = 7,
 }
 
 static func variant_to_string(type: PlantType) -> String:

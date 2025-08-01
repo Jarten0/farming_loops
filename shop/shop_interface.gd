@@ -24,6 +24,6 @@ func _process(delta: float) -> void:
 		
 	var i = 0
 	for position in positions:
-		var target_position = (i * 75) + 110
+		var target_position = (i * 100) + 110
 		buttons[i].position = Vector2(10, (target_position * progress) - 110)
 		i += 1

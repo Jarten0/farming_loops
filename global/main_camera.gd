@@ -19,23 +19,27 @@ func _process(delta: float) -> void:
 	
 	
 	if Input.is_action_just_pressed("toggle_camera"):
-		match mode:
-			"Player":
-				mode = "Range"
-			"Range":
-				mode = "Space"
-			"Space":
-				mode = "Player"
-			_:
-				mode = "Player"
+		toggle_camera()
 	
 	match mode:
 		"Player":
-			target_zoom = Vector2(1, 1)
+			target_zoom = Vector2(0.6, 0.6)
 		"Range":
 			target_zoom = Vector2(0.2, 0.2)
 		"Space":
 			target_zoom = Vector2(0.02, 0.02)
 	
-			
-	
+func toggle_camera(set: String = ""):
+	if set != "":
+		mode = set
+		return
+		
+	match mode:
+		"Player":
+			mode = "Range"
+		"Range":
+			mode = "Space"
+		"Space":
+			mode = "Player"
+		_:
+			mode = "Player"

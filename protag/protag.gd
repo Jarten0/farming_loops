@@ -10,9 +10,17 @@ extends Attachable
 @export var characterbody: CharacterBody2D
 @export var jump_strength: float = 100
 @export var move_speed: float = 1000
-
+@export var placing_planet: Planet
+@export var invalid_place: Texture
+@export var valid_place: Texture
+@export var previous_planet_pos: Vector2 # used for trajectory prediction
+@export var planet_inventory: Array[PackedScene]
 
 func _physics_process(delta: float) -> void:
+	if placing_planet:
+		try_place_planet()
+		return
+	
 	process_gravity(delta)
 
 	if !attached:
@@ -55,14 +63,7 @@ func process_harvests() -> void:
 func harvest(plant: Harvestable):
 	plant.harvest()
 	
-	match plant.Type:
-		Harvestable.PlantType.None:
-			pass
-		Harvestable.PlantType.Berry:
-			inventory["berries"] += 1;
-		Harvestable.PlantType.Flower:
-			inventory["flowers"] += 1;
-		
+	inventory[Harvestable.variant_to_string(plant.Type)] += 1;
 	
 func process_plants():
 	if !Input.is_action_just_pressed("plant"):
@@ -128,47 +129,74 @@ func process_gravity(delta: float):
 	
 
 
-func _on_shop_purchased(type: Harvestable.PlantType) -> void:
-	match plant_type:
-		Harvestable.PlantType.None:
-			return;
-		Harvestable.PlantType.Berry:
-			if inventory["berries"] < 3:
-				return
-			inventory["berries"] -= 3
-		Harvestable.PlantType.Strawberry:
-			if inventory["strawberries"] < 5:
-				return
-			inventory["strawberries"] -= 5
-		Harvestable.PlantType.Flower:
-			if inventory["flowers"] < 2:
-				return
-			inventory["flowers"] -= 2
-		Harvestable.PlantType.Tomato:
-			if inventory["tomatos"] < 5:
-				return
-			inventory["tomatos"] -= 5
-		Harvestable.PlantType.Carrot:
-			if inventory["carrots"] < 2:
-				return
-			inventory["carrots"] -= 2
-		Harvestable.PlantType.Wheat:
-			if inventory["wheat"] < 2:
-				return
-			inventory["wheat"] -= 2
+func _on_shop_purchased(type: Harvestable.PlantType, cost: int, price_type: Harvestable.PlantType) -> void:
+	var cost_type = Harvestable.variant_to_string(price_type)
+	if inventory[cost_type] < cost:
+		return
+	
+	inventory[cost_type] -= cost
 	
 	match type:
 		Harvestable.PlantType.None:
-			pass
-		Harvestable.PlantType.Berry:
-			inventory["blueberry_seeds"] += 1
-		Harvestable.PlantType.Flower:
-			inventory["flower_seeds"] += 1
-		Harvestable.PlantType.Strawberry:
-			inventory["strawberry_seeds"] += 1
-		Harvestable.PlantType.Tomato:
-			inventory["tomato_seeds"] += 1
-		Harvestable.PlantType.Carrot:
-			inventory["carrot_seeds"] += 1
-		Harvestable.PlantType.Wheat:
-			inventory["wheat_seeds"] += 1
+			return
+		Harvestable.PlantType.SmallPlanet:
+			activate_place_planet()
+			return
+	plant(type)
+
+func activate_place_planet():
+	var planet: Planet = planet_inventory[0].instantiate()
+	planet.visible = false
+	$"../Sun".process_mode = Node.PROCESS_MODE_DISABLED
+	planet.process_mode = Node.PROCESS_MODE_DISABLED
+	%MainCamera.toggle_camera("Space")
+	$PlanetIndicator.visible = true
+	$PlanetIndicator.scale = Vector2(planet.size, planet.size) / 40
+	$"..".add_child(planet)
+	$"..".planets.append(planet)
+	placing_planet = planet
+
+func try_place_planet():
+	placing_planet.global_position = get_global_mouse_position()
+	$PlanetIndicator.global_position = placing_planet.global_position
+	if previous_planet_pos != placing_planet.global_position:
+		$"../Sun/PredictionSun".reset_prediction()
+		previous_planet_pos = placing_planet.global_position
+	
+	if Input.is_action_just_pressed("harvest"):
+		$"../Sun".process_mode = Node.PROCESS_MODE_INHERIT
+		$PlanetIndicator.visible = false
+		$"..".planets.pop_back()
+		$"../Sun/PredictionSun".reset_prediction()
+		placing_planet.queue_free()
+		%MainCamera.toggle_camera("Range")
+		placing_planet = null
+		return
+	
+	for planet: Planet in $"..".planets:
+		if planet == placing_planet:
+			continue
+		if planet.global_position.distance_to(placing_planet.global_position) \
+			< planet.size + placing_planet.size + 300:
+			$PlanetIndicator.texture = invalid_place
+			$PlanetIndicator.scale = Vector2(placing_planet.size, placing_planet.size) / 40
+			
+			return
+	$PlanetIndicator.texture = valid_place
+	$PlanetIndicator.scale = Vector2(placing_planet.size, placing_planet.size) / 1150
+	
+	
+	if Input.is_action_just_pressed("plant"):
+		placing_planet.process_mode = Node.PROCESS_MODE_INHERIT
+		placing_planet.scale = Vector2.ONE * placing_planet.size * 2
+		placing_planet.visible = true
+		$"../Sun".process_mode = Node.PROCESS_MODE_INHERIT
+		$"../Sun/PredictionSun".reset_prediction()
+		$PlanetIndicator.visible = false
+		%MainCamera.toggle_camera("Range")
+		
+		for plant in placing_planet.preset_plants:
+			$"..".harvestable_plants.append(plant)
+		
+		placing_planet = null
+		

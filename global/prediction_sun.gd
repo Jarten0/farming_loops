@@ -13,7 +13,9 @@ func reset_prediction() -> void:
 	speed = base_sun.speed
 	velocity = base_sun.velocity
 	targetted_planet = base_sun.targetted_planet
+	global_position = base_sun.global_position
 	step = 0
+	base_sun.step = 0
 	for child in get_children():
 		child.queue_free()
 
@@ -37,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	new_sprite.texture = trail_texture
 	new_sprite.global_position = global_position
 	new_sprite.top_level = true
-	new_sprite.scale = Vector2.ONE * 20;
+	new_sprite.scale = Vector2.ONE * 10;
 	new_sprite.z_index = (-step % 20) - 20
 	$".".add_child(new_sprite)
 	var index = (step / 10) % max_steps;

@@ -1,25 +1,13 @@
 extends Control
 
-signal purchased(type: Harvestable.PlantType)
+signal purchased(type: Harvestable.PlantType, cost: int, price_type: Harvestable.PlantType)
+
 @export var protag: Protag
-@export var prices: Dictionary[String, int]
-@export var price_type: Dictionary[String, Harvestable.PlantType]
+@export var buttons: Array[Node2D]
 
-func _on_blueberry_pressed() -> void:
-	purchased.emit(Harvestable.PlantType.Berry)
-
-
-func _on_strawberry_pressed() -> void:
-	purchased.emit(Harvestable.PlantType.Strawberry)
-
-
-func _on_tomatoes_pressed() -> void:
-	purchased.emit(Harvestable.PlantType.Tomato)
-
-
-func _on_carrots_pressed() -> void:
-	purchased.emit(Harvestable.PlantType.Carrot)
-
-
-func _on_wheat_pressed() -> void:
-	purchased.emit(Harvestable.PlantType.Wheat)
+func _on_buy_with_pressed(buy_with: BuyWith) -> void:
+	purchased.emit(
+		buy_with.buying,
+		buy_with.cost,
+		buy_with.cost_type
+	)

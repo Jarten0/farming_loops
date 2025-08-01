@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bfefg40nn8vlj"]
+[gd_scene load_steps=25 format=3 uid="uid://bfefg40nn8vlj"]
 
 [ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://protag/character_game_jam.png" id="1_6ebau"]
 [ext_resource type="Script" uid="uid://tnghoijkctsu" path="res://global/main_camera.gd" id="1_xckwb"]
@@ -18,8 +18,6 @@
 [ext_resource type="Script" uid="uid://b56pfl8me04lw" path="res://planets/planet.gd" id="12_wdra6"]
 [ext_resource type="Script" uid="uid://boi40qq7j2mf3" path="res://global/prediction_sun.gd" id="15_g6516"]
 [ext_resource type="Texture2D" uid="uid://co3xpj8vq2ljd" path="res://planets/prediction.png" id="16_5iijm"]
-[ext_resource type="PackedScene" uid="uid://iku6nsm6v5yv" path="res://planet_ui/planet_ui.tscn" id="16_w46co"]
-[ext_resource type="PackedScene" uid="uid://c8q601qj5emcv" path="res://planet_ui/planet_pointer.tscn" id="17_62ela"]
 [ext_resource type="PackedScene" uid="uid://20pneilng725" path="res://planets/Big_Low_Grav.tscn" id="21_s4p88"]
 [ext_resource type="PackedScene" uid="uid://bywyunnijc74k" path="res://planets/Small_Dense.tscn" id="22_orquc"]
 
@@ -57,17 +55,16 @@ target_zoom = Vector2(0.2, 0.2)
 position = Vector2(-3, -620)
 script = ExtResource("2_6c5vy")
 inventory = Dictionary[String, int]({
-"berries": 0,
+"blueberry": 0,
 "blueberry_seeds": 0,
+"carrot": 0,
 "carrot_seeds": 0,
-"carrots": 0,
+"flower": 0,
 "flower_seeds": 0,
-"flowers": 0,
-"planets": 0,
-"strawberries": 0,
+"strawberry": 0,
 "strawberry_seeds": 0,
+"tomato": 0,
 "tomato_seeds": 0,
-"tomatos": 0,
 "wheat": 0,
 "wheat_seeds": 0
 })
@@ -76,6 +73,9 @@ root_node = NodePath("..")
 characterbody = NodePath(".")
 jump_strength = 3000.0
 move_speed = 2200.0
+invalid_place = ExtResource("16_5iijm")
+valid_place = ExtResource("3_kea51")
+planet_inventory = Array[PackedScene]([ExtResource("22_orquc")])
 attached = NodePath("../Earth")
 
 [node name="Protag" type="Sprite2D" parent="Protag"]
@@ -86,6 +86,14 @@ texture = ExtResource("1_6ebau")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Protag"]
 scale = Vector2(4.47792, 5.91898)
 shape = SubResource("CapsuleShape2D_eely4")
+
+[node name="PlanetIndicator" type="Sprite2D" parent="Protag"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.345098)
+clip_children = 2
+position = Vector2(7993, 5924)
+scale = Vector2(125, 125)
+texture = ExtResource("16_5iijm")
 
 [node name="Earth" type="MeshInstance2D" parent="."]
 z_index = -6
@@ -98,10 +106,20 @@ script = ExtResource("12_wdra6")
 density_modifier = 2.5
 
 [node name="Sun" type="Area2D" parent="." node_paths=PackedStringArray("root_node")]
+unique_name_in_owner = true
 position = Vector2(48, -6568)
 scale = Vector2(1, 0.986438)
 script = ExtResource("7_kea51")
 root_node = NodePath("..")
+velocity = Vector2(5000, 0)
+
+[node name="PredictionSun" type="Node2D" parent="Sun" node_paths=PackedStringArray("base_sun")]
+top_level = true
+position = Vector2(48, -6568)
+scale = Vector2(1, 0.986438)
+script = ExtResource("15_g6516")
+base_sun = NodePath("..")
+trail_texture = ExtResource("16_5iijm")
 velocity = Vector2(5000, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sun"]
@@ -119,14 +137,6 @@ metadata/_edit_lock_ = true
 scale = Vector2(2, 2)
 texture = ExtResource("6_6c5vy")
 metadata/_edit_lock_ = true
-
-[node name="PredictionSun" type="Node2D" parent="." node_paths=PackedStringArray("base_sun")]
-position = Vector2(48, -6568)
-scale = Vector2(1, 0.986438)
-script = ExtResource("15_g6516")
-base_sun = NodePath("../Sun")
-trail_texture = ExtResource("16_5iijm")
-velocity = Vector2(5000, 0)
 
 [node name="BerryBush" parent="." node_paths=PackedStringArray("attached") instance=ExtResource("4_y5dew")]
 position = Vector2(1083, 196)
@@ -165,13 +175,11 @@ mouse_filter = 2
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Shop" parent="UI" node_paths=PackedStringArray("protag") instance=ExtResource("2_s18ad")]
-scale = Vector2(1.9, 1.9)
+offset_right = 0.0
+offset_bottom = 0.0
+scale = Vector2(2, 2)
+focus_mode = 1
 protag = NodePath("../../Protag")
-
-[node name="PlanetUI" parent="UI" node_paths=PackedStringArray("collection", "camera") instance=ExtResource("16_w46co")]
-collection = NodePath("../..")
-pointer = ExtResource("17_62ela")
-camera = NodePath("../../MainCamera")
 
 [node name="Earth2" parent="." instance=ExtResource("21_s4p88")]
 position = Vector2(72195, 50890)
