@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bfefg40nn8vlj"]
+[gd_scene load_steps=26 format=3 uid="uid://bfefg40nn8vlj"]
 
 [ext_resource type="Texture2D" uid="uid://dweer6k68db0r" path="res://protag/character_game_jam.png" id="1_6ebau"]
 [ext_resource type="Script" uid="uid://tnghoijkctsu" path="res://global/main_camera.gd" id="1_xckwb"]
@@ -11,13 +11,14 @@
 [ext_resource type="Script" uid="uid://60veij5n47b6" path="res://global/interaction.gd" id="5_xckwb"]
 [ext_resource type="Texture2D" uid="uid://cr3hkpofs4phx" path="res://planets/sun.png" id="6_6c5vy"]
 [ext_resource type="PackedScene" uid="uid://bd4umycytky1o" path="res://plants/carrot/carrot.tscn" id="6_wdra6"]
-[ext_resource type="Shader" uid="uid://dsfw26xqtiyv2" path="res://shaders/Sky_Shader.tres" id="6_y5dew"]
 [ext_resource type="Script" uid="uid://cqi8ky2e2nm1p" path="res://planets/sun.gd" id="7_kea51"]
 [ext_resource type="PackedScene" uid="uid://te627hnr5stl" path="res://plants/wheat/wheat.tscn" id="7_w46co"]
 [ext_resource type="PackedScene" uid="uid://c64p3i7qsn8dw" path="res://plants/strawberry/strawberry.tscn" id="12_0ponj"]
 [ext_resource type="Script" uid="uid://b56pfl8me04lw" path="res://planets/planet.gd" id="12_wdra6"]
 [ext_resource type="Script" uid="uid://boi40qq7j2mf3" path="res://global/prediction_sun.gd" id="15_g6516"]
 [ext_resource type="Texture2D" uid="uid://co3xpj8vq2ljd" path="res://planets/prediction.png" id="16_5iijm"]
+[ext_resource type="Shader" uid="uid://b0s0p048f338o" path="res://shy_shader.gdshader" id="18_5iijm"]
+[ext_resource type="Script" uid="uid://bpn47ohiaamtr" path="res://global/update_bg_uniforms.gd" id="19_s4p88"]
 [ext_resource type="PackedScene" uid="uid://20pneilng725" path="res://planets/Big_Low_Grav.tscn" id="21_s4p88"]
 [ext_resource type="PackedScene" uid="uid://bywyunnijc74k" path="res://planets/Small_Dense.tscn" id="22_orquc"]
 
@@ -28,11 +29,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_62ela"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xckwb"]
-shader = ExtResource("6_y5dew")
-shader_parameter/Top_Color = Color(0.05, 0.303333, 1, 1)
-shader_parameter/Bottom_Color = Color(1, 1, 1, 1)
-shader_parameter/Horizon_Height = -0.505
-shader_parameter/Horizon_Sharpness = 5.515
+shader = ExtResource("18_5iijm")
+shader_parameter/near_planet_pos = Vector2(600, 300)
+shader_parameter/near_planet_size = 200.0
+shader_parameter/sun_pos = Vector2(600, 272.14)
+shader_parameter/test = 0.0
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("harvestable_plants", "planets")]
 script = ExtResource("5_xckwb")
@@ -98,7 +99,7 @@ texture = ExtResource("16_5iijm")
 [node name="Earth" type="MeshInstance2D" parent="."]
 z_index = -6
 texture_filter = 1
-position = Vector2(0, 5000)
+position = Vector2(12, 5080)
 scale = Vector2(9900, 9900)
 mesh = SubResource("QuadMesh_8mm7a")
 texture = ExtResource("3_kea51")
@@ -120,6 +121,7 @@ scale = Vector2(1, 0.986438)
 script = ExtResource("15_g6516")
 base_sun = NodePath("..")
 trail_texture = ExtResource("16_5iijm")
+max_steps = 500
 velocity = Vector2(5000, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sun"]
@@ -158,19 +160,20 @@ attached = NodePath("../Earth")
 [node name="Backdrop" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="Backdrop"]
+[node name="ColorRect" type="ColorRect" parent="Backdrop" node_paths=PackedStringArray("collections", "camera", "sun")]
 material = SubResource("ShaderMaterial_xckwb")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1729.0
-offset_top = -879.0
-offset_right = 559.0
-offset_bottom = 409.0
+offset_right = 2288.0
+offset_bottom = 1288.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 0.993093)
 mouse_filter = 2
+script = ExtResource("19_s4p88")
+collections = NodePath("../..")
+camera = NodePath("../../MainCamera")
+sun = NodePath("../../Sun")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

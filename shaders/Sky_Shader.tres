@@ -85,7 +85,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-260.926, -383.473)
+graph_offset = Vector2(-465.473, -122.528)
 mode = 1
 flags/light_only = false
 preview_params/Top_Color = "Color(0, 0, 0, 1)"

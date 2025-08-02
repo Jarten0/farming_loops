@@ -69,7 +69,7 @@ func process_plants():
 	if !Input.is_action_just_pressed("plant"):
 		return;
 		
-	plant(plant_type)
+	#plant(plant_type)
 
 
 func plant(type: Harvestable.PlantType):
@@ -129,7 +129,13 @@ func process_gravity(delta: float):
 	
 
 
-func _on_shop_purchased(type: Harvestable.PlantType, cost: int, price_type: Harvestable.PlantType) -> void:
+func _on_shop_purchased(
+	#type: Harvestable.PlantType, cost: int, price_type: Harvestable.PlantType
+	purchase_button: PurchaseButton
+) -> void:
+	var type = purchase_button.buying
+	var cost = purchase_button.cost
+	var price_type = purchase_button.cost_type
 	var cost_type = Harvestable.variant_to_string(price_type)
 	if inventory[cost_type] < cost:
 		return
@@ -142,6 +148,7 @@ func _on_shop_purchased(type: Harvestable.PlantType, cost: int, price_type: Harv
 		Harvestable.PlantType.SmallPlanet:
 			activate_place_planet()
 			return
+	purchase_button.increase_cost()
 	plant(type)
 
 func activate_place_planet():

@@ -1,7 +1,7 @@
-class_name BuyWith
+class_name PurchaseButton
 extends Button
 
-signal bought(buy_with: BuyWith)
+signal bought(buy_with: PurchaseButton)
 
 @export var unlocked = false
 @export var buying: Harvestable.PlantType 
@@ -20,3 +20,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_pressed() -> void:
 	bought.emit(self)
+	
+func increase_cost():
+	cost += 1
